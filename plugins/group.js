@@ -4,7 +4,7 @@ const { pnix, isPrivate, isAdmin, parsedJid, isUrl } = require("../lib/");
 pnix(
   {
     pattern: "add ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     desc: "add a person to group",
     type: "group",
   },
@@ -28,7 +28,7 @@ pnix(
 pnix(
   {
     pattern: "kick ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match) => {
@@ -48,7 +48,7 @@ pnix(
 pnix(
   {
     pattern: "promote ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match) => {
@@ -72,7 +72,7 @@ pnix(
 pnix(
   {
     pattern: "demote",
-    fromMe: true,
+    fromMe: isPrivate,
     desc: "demote a member",
     type: "group",
   },
@@ -134,7 +134,7 @@ pnix(
 pnix(
   {
     pattern: "tagall ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match) => {
@@ -156,7 +156,7 @@ pnix(
 pnix(
   {
     pattern: "gjid",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match, m, client) => {
@@ -175,7 +175,7 @@ pnix(
 
 pnix({
   pattern: "mute",
-  fromMe: true,
+  fromMe: isPrivate,
   desc: "Mute group",
   type: "group",
 }, async (message, match, _, client) => {
@@ -198,7 +198,7 @@ pnix({
 pnix(
   {
     pattern: "unmute",
-    fromMe: true,
+    fromMe: isPrivate,
     desc: "unmute group",
     type: "group",
   },
