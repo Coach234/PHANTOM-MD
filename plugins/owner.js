@@ -94,3 +94,4 @@ pnix(
       client.sendMessage(message.jid, { delete: message.reply_message.key })
     }
   }
+);
