@@ -9,17 +9,16 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-     if (!message.isGroup)
+    if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     if (!isAdmin(message.jid, message.user, message.client))
       return await message.reply("*_I M Not An Admin_*");
-      let isadmin = await isAdmin(message.jid, message.user, message.client);
+    let isadmin = await isAdmin(message.jid, message.user, message.client);
     if (!isadmin) {
       return await message.reply("*_This Command Is Only For Admins_*");
+    } // Added missing opening curly brace here
     const jid = parsedJid(match);
-
     await message.client.groupParticipantsUpdate(message.jid, jid, "add");
-
     return await message.reply(`_@${jid[0].split("@")[0]} added_`, {
       mentions: [jid],
     });
@@ -174,26 +173,25 @@ pnix(
 );
 
 pnix({
-    pattern: "mute",
-    fromMe: true,
-    desc: "Mute group",
-    type: "group"
+  pattern: "mute",
+  fromMe: true,
+  desc: "Mute group",
+  type: "group",
 }, async (message, match, _, client) => {
-    if (!message.isGroup) {
-        return await message.reply("_*This Command Is Only For Groups*_");
-    }
+  if (!message.isGroup) {
+    return await message.reply("_*This Command Is Only For Groups*_");
+  }
+  if (!isAdmin(message.jid, message.user, client)) {
+    return await message.reply("*_This Command Is Only For Admins_*");
+  }
 
-    if (!isAdmin(message.jid, message.user, client)) {
-        return await message.reply("*_This Command Is Only For Admins_*");
-    }
-    
-    const botAdmin = await isAdmin(message.jid, message.client.user.jid, message.client);
-    if (!botAdmin) {
-      return await message.reply("*_I M Not An Admin_*");
-    }
+  const botAdmin = await isAdmin(message.jid, message.client.user.jid, message.client);
+  if (!botAdmin) {
+    return await message.reply("*_I M Not An Admin_*");
+  }
 
-    await message.reply("_Muting_");
-    await client.groupSettingUpdate(message.jid, "announcement", true);
+  await message.reply("_Muting_");
+  await client.groupSettingUpdate(message.jid, "announcement"); 
 });
 
 pnix(
@@ -204,14 +202,15 @@ pnix(
     type: "group",
   },
   async (message, match, m, client) => {
-     if (!message.isGroup)
+    if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     if (!isAdmin(message.jid, message.user, message.client))
       return await message.reply("*_I M Not An Admin_*");
-      let isadmin = await isAdmin(message.jid, message.user, message.client);
+    let isadmin = await isAdmin(message.jid, message.user, message.client);
     if (!isadmin) {
       return await message.reply("*_This Command Is Only For Admins_*");
+    }
     await message.reply("_Unmuting_");
-    return await client.groupSettingUpdate(message.jid, "not_announcement");
+    await client.groupSettingUpdate(message.jid, "not_announcement"); 
   }
 );
