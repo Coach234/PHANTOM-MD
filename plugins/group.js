@@ -1,22 +1,6 @@
 const config = require("../config");
 const { pnix, isAdmin, parsedJid, isUrl } = require("../lib/");
 
-const commonGroupAdminCheck = async (message) => {
-  if (!message.isGroup) {
-    return await message.reply("_*This Command Is Only For Groups*_");
-  }
-
-  const isUserAdmin = await isAdmin(message.jid, message.user, message.client);
-  if (!isUserAdmin) {
-    return await message.reply("*_This Command Is Only For Admins_*");
-  }
-
-  const isBotAdmin = await isAdmin(message.jid, message.client.user.jid, message.client);
-  if (!isBotAdmin) {
-    return await message.reply("*_I M Not An Admin_*");
-  }
-};
-
 pnix(
   {
     pattern: "add ?(.*)",
@@ -25,11 +9,13 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await commonGroupAdminCheck(message);
-
-    match = match || message.reply_message.jid;
-    if (!match) return await message.reply("_Mention user to add");
-
+     if (!message.isGroup)
+      return await message.reply("_*This Command Is Only For Groups*_");
+    if (!isAdmin(message.jid, message.user, message.client))
+      return await message.reply("*_I M Not An Admin_*");
+      let isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) {
+      return await message.reply("*_This Command Is Only For Admins_*");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "add");
@@ -47,8 +33,13 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await commonGroupAdminCheck(message);
-
+     if (!message.isGroup)
+      return await message.reply("_*This Command Is Only For Groups*_");
+    if (!isAdmin(message.jid, message.user, message.client))
+      return await message.reply("*_I M Not An Admin_*");
+      let isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) {
+      return await message.reply("*_This Command Is Only For Admins_*");
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
     await message.kick(jid);
@@ -65,12 +56,18 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await commonGroupAdminCheck(message);
-
+    if (!message.isGroup)
+      return await message.reply("_*This Command Is Only For Groups*_");
+    if (!isAdmin(message.jid, message.user, message.client))
+      return await message.reply("*_I M Not An Admin_*");
+      let isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) {
+      return await message.reply("*_This Command Is Only For Admins_*");
+    }
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
     await message.promote(jid);
-    return await message.reply(`@${jid[0].split("@")[0]} promoted as admin`, {
+    return await message.reply(`@${jid[0].split("@")[0]} *Promoted As Admin*`, {
       mentions: jid,
     });
   }
@@ -84,10 +81,15 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await commonGroupAdminCheck(message);
-
+  if (!message.isGroup)
+      return await message.reply("_*This Command Is Only For Groups*_");
+    }
+    let isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) {
+      return await message.reply("*_This Command Is Only For Admins_*");
+    }
     match = match || message.reply_message.jid;
-    if (!match) return await message.reply("_Mention user to demote");
+    if (!match) return await message.reply("_Mention A User To Demote_");
     const botAdmin = await isAdmin(message.jid, message.client.user.jid, message.client);
     if (!botAdmin) {
       return await message.reply("*_I M Not An Admin_*");
@@ -100,27 +102,30 @@ pnix(
     });
   }
 );
+;
 
+/**
+ * antilink
+*/
 pnix(
   {
     on: "text",
   },
   async (message, match) => {
-    await commonGroupAdminCheck(message);
-
     if (!message.isGroup) return;
     if (config.ANTILINK)
       if (isUrl(match)) {
-        await message.reply("_Link Detected Successfully_");
+        await message.reply("_Link Detected Sucessfully_");
         let botadmin = await isAdmin(message.jid, message.user, message.client)
         let senderadmin = await isAdmin(message.jid, message.participant, message.client)
         if (botadmin) {
           if (!senderadmin){
-            await message.reply(
-              `_Commencing Specified Action :${config.ANTILINK_ACTION}_`
-            );
-            return await message[config.ANTILINK_ACTION]([message.participant]);
-          }
+          await message.reply(
+            `_Commencing Specified Action :${config.ANTILINK_ACTION}_`
+          );
+          return await message[config.ANTILINK_ACTION]([message.participant]);
+        }} else {
+          return await message.reply("*_I M Not An Admin_*");
         }
       }
   }
@@ -133,8 +138,6 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await commonGroupAdminCheck(message);
-
     if (!message.isGroup) {
       return await message.reply("_*This Command Is Only For Groups*_");
     }
@@ -149,6 +152,7 @@ pnix(
   }
 );
 
+
 pnix(
   {
     pattern: "gjid",
@@ -156,8 +160,6 @@ pnix(
     type: "group",
   },
   async (message, match, m, client) => {
-    await commonGroupAdminCheck(message);
-
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     let { participants } = await client.groupMetadata(message.jid);
@@ -177,10 +179,17 @@ pnix({
     desc: "Mute group",
     type: "group"
 }, async (message, match, _, client) => {
-    await commonGroupAdminCheck(message);
-
     if (!message.isGroup) {
         return await message.reply("_*This Command Is Only For Groups*_");
+    }
+
+    if (!isAdmin(message.jid, message.user, client)) {
+        return await message.reply("*_This Command Is Only For Admins_*");
+    }
+    
+    const botAdmin = await isAdmin(message.jid, message.client.user.jid, message.client);
+    if (!botAdmin) {
+      return await message.reply("*_I M Not An Admin_*");
     }
 
     await message.reply("_Muting_");
@@ -195,13 +204,14 @@ pnix(
     type: "group",
   },
   async (message, match, m, client) => {
-    await commonGroupAdminCheck(message);
-
-    if (!message.isGroup)
+     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
+    if (!isAdmin(message.jid, message.user, message.client))
+      return await message.reply("*_I M Not An Admin_*");
+      let isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) {
+      return await message.reply("*_This Command Is Only For Admins_*");
     await message.reply("_Unmuting_");
     return await client.groupSettingUpdate(message.jid, "not_announcement");
   }
 );
-
-// Add similar checks for other commands...
