@@ -9,7 +9,7 @@ pnix(
   },
   async (message, match) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Groups_*");
     if (!isAdmin(message.jid, message.user, message.client))
       return await message.reply("*_I M Not An Admin_*");
     match = match || message.reply_message.jid;
