@@ -91,8 +91,6 @@ pnix(
     type: "owner", 
   },
   async (message, match,m,client) => {
-    if (message.isGroup) {
       client.sendMessage(message.jid, { delete: message.reply_message.key })
     }
   }
-);
