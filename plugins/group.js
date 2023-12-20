@@ -80,19 +80,23 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-  if (!message.isGroup)
+    if (!message.isGroup) {
       return await message.reply("_*This Command Is Only For Groups*_");
     }
+
     let isadmin = await isAdmin(message.jid, message.user, message.client);
     if (!isadmin) {
       return await message.reply("*_This Command Is Only For Admins_*");
     }
+
     match = match || message.reply_message.jid;
     if (!match) return await message.reply("_Mention A User To Demote_");
+
     const botAdmin = await isAdmin(message.jid, message.client.user.jid, message.client);
     if (!botAdmin) {
       return await message.reply("*_I M Not An Admin_*");
     }
+
     let jid = parsedJid(match);
     await message.demote(jid);
 
@@ -101,7 +105,7 @@ pnix(
     });
   }
 );
-;
+
 
 /**
  * antilink
