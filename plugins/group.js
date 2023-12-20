@@ -1,5 +1,5 @@
 const config = require("../config");
-const { pnix, isAdmin, parsedJid, isUrl } = require("../lib/");
+const { pnix, isPrivate, isAdmin, parsedJid, isUrl } = require("../lib/");
 
 pnix(
   {
@@ -32,13 +32,10 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-     if (!message.isGroup)
-      return await message.reply("_*This Command Is Only For Groups*_");
+    if (!message.isGroup)
+      return await message.reply("_This command is for groups_");
     if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("*_I M Not An Admin_*");
-      let isadmin = await isAdmin(message.jid, message.user, message.client);
-    if (!isadmin) {
-      return await message.reply("*_This Command Is Only For Admins_*");
+      return await message.reply("_I'm not admin_");
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
     await message.kick(jid);
