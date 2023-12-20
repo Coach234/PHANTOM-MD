@@ -1,7 +1,7 @@
 const config = require("../config");
 const { pnix, isAdmin, parsedJid, isUrl } = require("../lib/");
 
-const abhiGpCheck = async (message) => {
+const commonGroupAdminCheck = async (message) => {
   if (!message.isGroup) {
     return await message.reply("_*This Command Is Only For Groups*_");
   }
@@ -25,7 +25,7 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     match = match || message.reply_message.jid;
     if (!match) return await message.reply("_Mention user to add");
@@ -47,7 +47,7 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
@@ -65,7 +65,7 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
@@ -84,7 +84,7 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     match = match || message.reply_message.jid;
     if (!match) return await message.reply("_Mention user to demote");
@@ -106,7 +106,7 @@ pnix(
     on: "text",
   },
   async (message, match) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     if (!message.isGroup) return;
     if (config.ANTILINK)
@@ -133,7 +133,7 @@ pnix(
     type: "group",
   },
   async (message, match) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     if (!message.isGroup) {
       return await message.reply("_*This Command Is Only For Groups*_");
@@ -156,7 +156,7 @@ pnix(
     type: "group",
   },
   async (message, match, m, client) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
@@ -177,7 +177,7 @@ pnix({
     desc: "Mute group",
     type: "group"
 }, async (message, match, _, client) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     if (!message.isGroup) {
         return await message.reply("_*This Command Is Only For Groups*_");
@@ -195,7 +195,7 @@ pnix(
     type: "group",
   },
   async (message, match, m, client) => {
-    await abhiGpCheck(message);
+    await commonGroupAdminCheck(message);
 
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
@@ -203,3 +203,5 @@ pnix(
     return await client.groupSettingUpdate(message.jid, "not_announcement");
   }
 );
+
+// Add similar checks for other commands...
