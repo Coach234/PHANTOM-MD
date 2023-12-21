@@ -19,23 +19,6 @@ const fetch = require("node-fetch")
 let gis = require("g-i-s");
 pnix(
   {
-    pattern: "insta",
-    fromMe: isPrivate,
-    type: "downloader",
-  },
-  async (message, match,m,client) => {
-    
-if (!match)return message.reply(`*ENter Instagram Post Link*`)
- message.reply('_*Downloading...*_');
-var ig = await fetch(`https://xzn.wtf/api/igdl?url=${match}&apikey=toxickichu`);
-var igdl = await ig.json();
-for (var i = 0; i < igdl.media[i].length; i++) {
-var type = igdl.media[i].includes('.jpg') ? 'image' : 'video'
-message.client.sendMessage(message.jid, {[type]:{ url:igdl.media[i]}, caption: `*${igdl.caption}*`}, {quoted: m})
-}})
-
-pnix(
-  {
     pattern: "song",
     fromMe: isPrivate,
     type: "downloader",
@@ -43,7 +26,7 @@ pnix(
   async (message, match, m) => {
     message.client.sendMessage(message.jid, { react: { text: "🎧", key: m.key } });
 
-    if (!match) return await message.reply(`_Enter A Song Name/Link_\n_📌 Example *${m.prefix}song Heat Waves*_`);
+    if (!match) return await message.reply(`_Enter A Song Name/Link_\n_📌 Example: *${m.prefix}song Heat Waves*_`);
 
     let yts = require("yt-search");
     let search = await yts(match);
@@ -104,7 +87,7 @@ pnix(
   },
   async (message, match,m) => {
 message.client.sendMessage(message.jid, { react: { text: "🎼" , key: m.key }}) 
-if (!match) return await message.reply(`_Enter A Song Name/Link_\n_📌 Example *${m.prefix}song Heat Waves*_`)
+if (!match) return await message.reply(`_Enter A Song Name/Link_\n_📌 Example: *${m.prefix}play Heat Waves*_`)
             let yts = require("yt-search");
             let search = await yts(match);
             let anu = search.videos[0];
@@ -157,7 +140,7 @@ pnix(
     type: "downloader",
   },
   async (message, match) => {
-    if (!match) return await message.sendMessage("*Enter A Text And Number Of Images You Want\n📌Example : *Pheonix MD,6*");
+    if (!match) return await message.sendMessage("*Enter A Text And Number Of Images You Want\n📌Example: *${m.prefix}Pheonix MD,6*");
     let [query, amount] = match.split(",");
     let result = await gimage(query, amount);
     await message.sendMessage(
