@@ -28,6 +28,7 @@ pnix(
 pnix(
   {
     pattern: "attp",
+    fromMe: isPrivate,
     type: "sticker",
   },
   async (message, match) => {
@@ -173,20 +174,6 @@ pnix(
 
 pnix(
   {
-    pattern: "mp3",
-    fromMe: isPrivate,
-    type: "converter",
-  },
-  async (message, match, m,client) => {
-    //if(message.reply_message.text) return await message.reply('_Enter Video Name_')
-    let buff = await m.quoted.download();
-    buff = await toAudio(buff, "mp3");
-    return await message.client.sendMessage(buff, { mimetype: "audio/mpeg" }, "audio");
-  }
-);
-
-pnix(
-  {
     pattern: "take",
     fromMe: isPrivate,
     type: "sticker",
@@ -244,78 +231,6 @@ pnix(
       return await message.reply(text);
     } else {
       message.reply(styletext(message.reply_message.text, parseInt(match)));
-    }
-  }
-);
-pnix(
-  {
-    pattern: "quotely",
-    fromMe: isPrivate,
-    type: "sticker",
-  },
-  async (message, match) => {
-    if (!message.reply_message || !message.reply_message.text) return await message.reply('Please quote any users message.');
-      let pfp;
-            try {
-                pfp = await message.client.profilePictureUrl(message.reply_message.participant, "image");
-            } catch (e) {
-                pfp = 'https://avatars.githubusercontent.com/u/95992247?v=4';
-            }
-            let todlinkf = ["#FFFFFF", "#000000"];
-            let todf = todlinkf[Math.floor(Math.random() * todlinkf.length)];
-            var tname
-            try{
-                tname = message.getName(message.reply_message.participant)
-            } catch (e) {
-                tname = "Phoenix-MD"
-            }
-            let body = {
-                type: "quote",
-                format: "png",
-                backgroundColor: todf,
-                width: 512,
-                height: 512,
-                scale: 3,
-                messages: [{
-                    avatar: true,
-                    from: {
-                        first_name: tname,
-                        language_code: "en",
-                        name: tname,
-                        photo: {
-                            url: pfp,
-                        },
-                    },
-                    text: message.reply_message.text,
-                    replyMessage: {},
-                }, ],
-            };
-            let res = await axios.post("https://quote-api.rippanteq7.repl.co/generate", body);
-            let img = Buffer.alloc(res.data.result.image.length, res.data.result.image, "base64");
-            return message.sendMessage(img,{packname:'Phoenix-MD',author:'Quotely'},"sticker")
-  }
-);
-
-pnix(
-  {
-    pattern: 'minion ?(.*)',
-    type: 'text',
-  },
-  async (message, match) => {
-    try {
-      if (!encodeURIComponent(match[1])) return await message.sendMessage('_Need text_');
-      
-      let api_url = base.format('https://textpro.me/minion-text-effect-3d-online-978.html', encodeURIComponent(match[1]));
-      await message.sendMessage('_Please wait..._');
-      
-      let result_url = (await axios(api_url)).data;
-      
-      if (typeof result_url === 'number') return await message.sendMessage(`*Need ${result_url} text!*\n*Ex: Text1, Text2*`);
-      
-      await message.sendMessage({ url: result_url }, 'image');
-    } catch (error) {
-      console.error('_Error While Generating Minion Image:_', error.message);
-      return await message.sendMessage('_Error While Generating Minion Image_');
     }
   }
 );
