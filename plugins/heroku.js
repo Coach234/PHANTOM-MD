@@ -16,6 +16,7 @@ const exec = require("child_process").exec;
 pnix({
     pattern: "restart",
     fromMe: true,
+    type: "heroku",
   },
   async (message) => {
     await message.send(`_🔄 Restarting_`);
