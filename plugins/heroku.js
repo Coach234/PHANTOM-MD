@@ -29,6 +29,7 @@ pnix({
 pnix({
     pattern: "shutdown",
     fromMe: true,
+    type: "heroku",
   },
   async (message) => {
     await heroku
@@ -52,6 +53,7 @@ pnix(
   {
     pattern: "setvar",
     fromMe: true,
+    type: "heroku",
   },
   async (message, match) => {
     if (!match)
@@ -80,6 +82,7 @@ pnix(
 pnix({
     pattern: "delvar",
     fromMe: true,
+    type: "heroku",
   },
   async (message, match) => {
     if (!match) return await message.send("*📌 Example:* delvar sudo");
@@ -107,6 +110,7 @@ pnix({
 pnix({
   pattern: "allvar",
   fromMe: true,
+  type: "heroku",
 },
 async (message) => {
   let msg = "Here Is The All Heroku Vars\n\n\n";
@@ -126,6 +130,7 @@ async (message) => {
 pnix({
   pattern: "update",
   fromMe: true,
+  type: "heroku",
 },
 async (message, match) => {
   let { prefix } = message;
