@@ -16,12 +16,11 @@ const exec = require("child_process").exec;
 pnix({
     pattern: "restart",
     fromMe: true,
-    type: "heroku",
   },
   async (message) => {
-    await message.send(`_🔄 Restarting_`);
+    await message.reply(`_🔄 Restarting_`);
     await heroku.delete(baseURI + "/dynos").catch(async (error) => {
-      await message.send(`*HEROKU : ${error.body.message}*`);
+      await message.reply(`*HEROKU : ${error.body.message}*`);
     });
   });
 
@@ -30,13 +29,12 @@ pnix({
 pnix({
     pattern: "shutdown",
     fromMe: true,
-    type: "heroku",
   },
   async (message) => {
     await heroku
       .get(baseURI + "/formation")
       .then(async (formation) => {
-        await message.send(`_Shut Downing Phoenix-MD_`);
+        await message.reply(`_Shut Downing Phoenix-MD_`);
         await heroku.patch(baseURI + "/formation/" + formation[0].id, {
           body: {
             quantity: 0,
@@ -44,7 +42,7 @@ pnix({
         });
       })
       .catch(async (error) => {
-        await message.send(`HEROKU : ${error.body.message}`);
+        await message.reply(`HEROKU : ${error.body.message}`);
       });
   });
 
@@ -54,15 +52,14 @@ pnix(
   {
     pattern: "setvar",
     fromMe: true,
-    type: "heroku",
   },
   async (message, match) => {
     if (!match)
-      return await message.send(`*📌 Example:* .setvar SUDO:919074692450`);
+      return await message.reply(`*📌 Example:* .setvar SUDO:919074692450`);
     const key = match.slice(0, match.indexOf(':')).trim();
     const value = match.slice(match.indexOf(':') + 1).trim();
     if (!key || !value)
-      return await message.send(`*📌 Example:* .setvar SUDO:919074692450`);
+      return await message.reply(`*📌 Example:* .setvar SUDO:919074692450`);
     heroku
       .patch(baseURI + "/config-vars", {
         body: {
@@ -70,10 +67,10 @@ pnix(
         },
       })
       .then(async () => {
-        await message.send(`${key.toUpperCase()}: ${value}`);
+        await message.reply(`${key.toUpperCase()}: ${value}`);
       })
       .catch(async (error) => {
-        await message.send(`HEROKU: ${error.body.message}`);
+        await message.reply(`HEROKU: ${error.body.message}`);
       });
   }
 );
@@ -83,10 +80,9 @@ pnix(
 pnix({
     pattern: "delvar",
     fromMe: true,
-    type: "heroku",
   },
   async (message, match) => {
-    if (!match) return await message.send("*📌 Example:* delvar sudo");
+    if (!match) return await message.reply("*📌 Example:* delvar sudo");
     heroku
       .get(baseURI + "/config-vars")
       .then(async (vars) => {
@@ -97,12 +93,12 @@ pnix({
               [key]: null,
             },
           });
-          return await message.send(`_Deleted ${key}_`);
+          return await message.reply(`_Deleted ${key}_`);
         }
-        await message.send(`_${key} Not Found_`);
+        await message.reply(`_${key} Not Found_`);
       })
       .catch(async (error) => {
-        await message.send(`*HEROKU : ${error.body.message}*`);
+        await message.reply(`*HEROKU : ${error.body.message}*`);
       });
   });
 
@@ -111,7 +107,6 @@ pnix({
 pnix({
   pattern: "allvar",
   fromMe: true,
-  type: "heroku",
 },
 async (message) => {
   let msg = "Here Is The All Heroku Vars\n\n\n";
@@ -120,9 +115,9 @@ async (message) => {
     for (const key in keys) {
       msg += `${key} : ${keys[key]}\n\n`;
     }
-    await message.send(msg + "");
+    await message.reply(msg + "");
   } catch (error) {
-    await message.send(`HEROKU : ${error.message}`);
+    await message.reply(`HEROKU : ${error.message}`);
   }
 });
 
@@ -131,7 +126,6 @@ async (message) => {
 pnix({
   pattern: "update",
   fromMe: true,
-  type: "heroku",
 },
 async (message, match) => {
   let { prefix } = message;
@@ -141,14 +135,14 @@ async (message, match) => {
       Config.BRANCH + "..origin/" + Config.BRANCH,
     ]);
     if (commits.total === 0) {
-      return await message.send(`_Phoenix-MD Is Now On The Latest Version: v${version}_`);
+      return await message.reply(`_Phoenix-MD Is Now On The Latest Version: v${version}_`);
     } else {
       await message.reply("_Updating Phoenix-MD_");
 
       try {
         var app = await heroku.get("/apps/" + Config.HEROKU_APP_NAME);
       } catch {
-        await message.send("_❌ Invalid Heroku Details_");
+        await message.reply("_❌ Invalid Heroku Details_");
         await new Promise((r) => setTimeout(r, 1000));
       }
 
@@ -167,20 +161,20 @@ async (message, match) => {
       }
       await git.push("heroku", Config.BRANCH);
 
-      await message.send("  _Phoenix-MD Updated Sucessfully✅_");
+      await message.reply("  _Phoenix-MD Updated Sucessfully✅_");
     }
   }
   await git.fetch();
   var commits = await git.log([Config.BRANCH + "..origin/" + Config.BRANCH]);
   if (commits.total === 0) {
-    await message.send("_Phoenix-MD Is Already On The Latest Version_");
+    await message.reply("_Phoenix-MD Is Already On The Latest Version_");
   } else {
-    var availupdate = "*New Update Avalible For Phoenix-MD* \n\n";
+    var availupdate = "*New Update Avalible For Phoenix-MD*\n\n";
     commits["all"].map((commit, num) => {
       availupdate += num + 1 + " ○  " + tiny(commit.message) + "\n";
     });
     return await message.client.sendMessage(message.jid, {
-      text: `${availupdate}\n\n _Type *${Config.HANDLERS} update now To Update*_`
+				text: `${availupdate}\n\n _Type *${Config.HANDLERS} update now To Update*_`
     });
   }
 });
