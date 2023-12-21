@@ -1,22 +1,29 @@
 const config = require("../config");
-const { pnix, isAdmin, parsedJid, isUrl } = require("../lib/");
+const { pnix, isPrivate, isAdmin, parsedJid, isUrl } = require("../lib/");
 
 pnix(
   {
     pattern: "add ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
+    desc: "add a person to group",
     type: "group",
   },
   async (message, match) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups_*");
-    if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("*_I M Not An Admin_*");
+      return await message.reply("*_This Command Is Only For Groups*_");
+
     match = match || message.reply_message.jid;
-    let jid = parsedJid(match);
-    await message.add(jid);
-    return await message.reply(`@${jid[0].split("@")[0]} Added`, {
-      mentions: jid,
+    if (!match) return await message.reply("_Mention user to add");
+
+    const isadmin = await isAdmin(message.jid, message.user, message.client);
+
+    if (!isadmin) return await message.reply("*_I M Not An Admin_*");
+    const jid = parsedJid(match);
+
+    await message.client.groupParticipantsUpdate(message.jid, jid, "add");
+
+    return await message.reply(`*_@${jid[0].split("@")[0]} Added_*`, {
+      mentions: [jid],
     });
   }
 );
@@ -24,7 +31,7 @@ pnix(
 pnix(
   {
     pattern: "kick ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match) => {
@@ -35,7 +42,7 @@ pnix(
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
     await message.kick(jid);
-    return await message.reply(`@${jid[0].split("@")[0]} Kicked`, {
+    return await message.reply(`@${jid[0].split("@")[0]} kicked`, {
       mentions: jid,
     });
   }
@@ -44,7 +51,7 @@ pnix(
 pnix(
   {
     pattern: "promote ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match) => {
@@ -55,26 +62,29 @@ pnix(
     match = match || message.reply_message.jid;
     let jid = parsedJid(match);
     await message.promote(jid);
-    return await message.reply(`@${jid[0].split("@")[0]} Promoted As Admin`, {
+    return await message.reply(`*_@${jid[0].split("@")[0]} Promoted As An Admin_*`, {
       mentions: jid,
     });
   }
 );
+
 pnix(
   {
-    pattern: "demote ?(.*)",
-    fromMe: true,
+    pattern: "demote",
+    fromMe: isPrivate,
+    desc: "demote a member",
     type: "group",
   },
   async (message, match) => {
     if (!message.isGroup)
       return await message.reply("*_This Command Is Only For Groups*_");
-    if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("*_I M Not An Admin_*");
     match = match || message.reply_message.jid;
+    if (!match) return await message.reply("_Mention A User To Demote");
+    let isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) return await message.reply("*_I M Not An Admin_*");
     let jid = parsedJid(match);
     await message.demote(jid);
-    return await message.reply(`@${jid[0].split("@")[0]} Demoted From Admin`, {
+    return await message.reply(`*_@${jid[0].split("@")[0]} Demoted From Admin_*`, {
       mentions: jid,
     });
   }
@@ -110,12 +120,11 @@ pnix(
 pnix(
   {
     pattern: "tagall ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match) => {
-    if (!message.isGroup) 
-    return await message.reply("*_This Command Is Only For Groups*_");
+    if (!message.isGroup) return;
     const { participants } = await message.client.groupMetadata(message.jid);
     let teks = "";
     for (let mem of participants) {
@@ -130,7 +139,7 @@ pnix(
 pnix(
   {
     pattern: "gjid",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "group",
   },
   async (message, match, m, client) => {
@@ -144,5 +153,40 @@ pnix(
     });
     str += `╰──────────────`;
     message.reply(str);
+  }
+);
+
+pnix({
+    pattern: "mute",
+    fromMe: isPrivate,
+    desc: "Mute group",
+    type: "group"
+}, async (message, match, _, client) => {
+    if (!message.isGroup) {
+        return await message.reply("*_This Command Is Only For Groups*_");
+    }
+
+    if (!isAdmin(message.jid, message.user, client)) {
+        return await message.reply("*_This Command Is Only For Admins_*");
+    }
+
+    await message.reply("_Muting_");
+    await client.groupSettingUpdate(message.jid, "announcement", isPrivate);
+});
+
+pnix(
+  {
+    pattern: "unmute",
+    fromMe: isPrivate,
+    desc: "unmute group",
+    type: "group",
+  },
+  async (message, match, m, client) => {
+    if (!message.isGroup)
+      return await message.reply("*_This Command Is Only For Groups*_");
+    if (!isAdmin(message.jid, message.user, message.client))
+      return await message.reply("*_I M Not An Admin_*");
+    await message.reply("_Unmuting_");
+    return await client.groupSettingUpdate(message.jid, "not_announcement");
   }
 );
