@@ -16,7 +16,7 @@ module.exports = {
   LOGS: toBool(process.env.LOGS) || true,
   ANTILINK_ACTION: process.env.ANTI_LINK || "kick",
   
-  AUTO_STATUS_READ: process.env.AUTO_STATUS_READ || 'true',
+  AUTO_STATUS_READ: process.env.AUTO_STATUS_READ || 'false',
   
   SESSION_ID: process.env.SESSION_ID || "", //Enter Your Session Id Here
   
