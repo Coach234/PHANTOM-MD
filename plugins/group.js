@@ -10,10 +10,10 @@ pnix(
   },
   async (message, match) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Admins_*");
 
     match = match || message.reply_message.jid;
-    if (!match) return await message.reply("_Mention user to add");
+    if (!match) return await message.reply("_Mention a User To Add_");
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
@@ -36,7 +36,7 @@ pnix(
   },
   async (message, match) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Admins_*");
     if (!isAdmin(message.jid, message.user, message.client))
       return await message.reply("*_I M Not An Admin_*");
     match = match || message.reply_message.jid;
@@ -56,7 +56,7 @@ pnix(
   },
   async (message, match) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Admins_*");
     if (!isAdmin(message.jid, message.user, message.client))
       return await message.reply("*_I M Not An Admin_*");
     match = match || message.reply_message.jid;
@@ -77,7 +77,7 @@ pnix(
   },
   async (message, match) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Admins_*");
     match = match || message.reply_message.jid;
     if (!match) return await message.reply("_Mention A User To Demote");
     let isadmin = await isAdmin(message.jid, message.user, message.client);
@@ -144,7 +144,7 @@ pnix(
   },
   async (message, match, m, client) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Admins_*");
     let { participants } = await client.groupMetadata(message.jid);
     let participant = participants.map((u) => u.id);
     let str = "╭──〔 *Group Jids* 〕\n";
@@ -163,7 +163,7 @@ pnix({
     type: "group"
 }, async (message, match, _, client) => {
     if (!message.isGroup) {
-        return await message.reply("*_This Command Is Only For Groups*_");
+        return await message.reply("*_This Command Is Only For Admins_*");
     }
 
     if (!isAdmin(message.jid, message.user, client)) {
@@ -183,7 +183,7 @@ pnix(
   },
   async (message, match, m, client) => {
     if (!message.isGroup)
-      return await message.reply("*_This Command Is Only For Groups*_");
+      return await message.reply("*_This Command Is Only For Admins_*");
     if (!isAdmin(message.jid, message.user, message.client))
       return await message.reply("*_I M Not An Admin_*");
     await message.reply("_Unmuting_");
