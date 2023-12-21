@@ -20,7 +20,7 @@
    "multi-device"
   ],
   "author": "Abhishek Suresh",
-  "license": "GPL-3.0",
+  "license": "Apache-2.0",
   "dependencies": {
    "@sampandey001/baileys": "latest",
     "@adiwajshing/keyed-db": "^0.2.4",
