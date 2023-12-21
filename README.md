@@ -26,10 +26,7 @@ Fork The Repo
 
 Scan QR Code
     <br>
-<a href="https://phoenix-md-qr-code-1b381286b492.herokuapp.com/qr-session.html"><img title="Phoenix-MD Scan Qr" src="https://img.shields.io/badge/SCAN QR CODE 1-h?color=black&style=for-the-badge&logo=msi"></a>
-    <br>
-<a href="https://phoenix-md-qr-code-1b381286b492.herokuapp.com/session"><img title="Phoenix-MD Scan Qr" src="https://img.shields.io/badge/SCAN QR CODE 2-h?color=black&style=for-the-badge&logo=msi"></a>
-
+<a href="https://phoenix-md-qr.onrender.com/#"><img title="Phoenix-MD Scan Qr" src="https://img.shields.io/badge/SCAN QR CODE-h?color=black&style=for-the-badge&logo=msi"></a>
 
 
 ## Phoenix-MD Deploy Method
