@@ -60,7 +60,7 @@ pnix(
     let fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
 
     if (fileSizeInMegabytes <= dlsize) {
-      await message.client.sendMessage(message.jid, { text: `*_Uploading ${titleYt}_` }, { quoted: m });
+      await message.client.sendMessage(message.jid, { text: `_Uploading ${titleYt}_` }, { quoted: m });
 
       let buttonMessage = {
         audio: fs.readFileSync(`./media/${randomName}`),
@@ -99,7 +99,7 @@ if (!match) return await message.reply(`_Enter A Song Name/Link_\n_📌 Example:
             let titleYt = infoYt.videoDetails.title;
           let randomName = getRandom(".mp3");
 let img = await getBuffer(anu.thumbnail);
-            await message.client.sendMessage(message.jid,{ text : `*_Downloading...  ${titleYt}_*`, contextInfo: { externalAdReply: {
+            await message.client.sendMessage(message.jid,{ text : `_Downloading...  ${titleYt}_`, contextInfo: { externalAdReply: {
 title: `${message.pushName}`,
 sourceUrl: anu.url,
 mediaUrl: anu.url,
@@ -167,69 +167,3 @@ async function gimage(query, amount = 5) {
     });
   });
 }
-
-pnix(
-  {
-    pattern: "ytv",  // Updated pattern to capture the command and match
-    fromMe: isPrivate,
-    type: "downloader",
-  },
-  async (message, match, m) => {
-    message.client.sendMessage(message.jid, { react: { text: "🎼", key: m.key } });
-    if (!match[2]) return await message.reply(`_Enter A Video *Name/Link*_`); // Check the second captured group
-    let yts = require("yt-search");
-    let search = await yts(match[2]); // Use the second captured group for the search
-    let anu = search.videos[0];
-    const getRandom = (ext) => {
-      return `${Math.floor(Math.random() * 10000)}${ext}`;
-    };
-    let infoYt = await ytdl.getInfo(anu.url);
-    if (infoYt.videoDetails.lengthSeconds >= videotime) return message.reply(`_Video File Is Too Big_`);
-    let titleYt = infoYt.videoDetails.title;
-    let randomName = getRandom(".mp4"); // Change the extension to .mp4 for video
-    let img = await getBuffer(anu.thumbnail);
-    await message.client.sendMessage(
-      message.jid,
-      {
-        text: `_Downloading..._  *${titleYt}_*`,
-        contextInfo: {
-          externalAdReply: {
-            title: `${message.pushName}`,
-            sourceUrl: anu.url,
-            mediaUrl: anu.url,
-            mediaType: 2, // Change mediaType to 2 for video
-            showAdAttribution: true,
-            renderLargerThumbnail: true,
-            thumbnailUrl: anu.thumbnail
-          }
-        }
-      },
-      { quoted: m }
-    );
-    const stream = ytdl(anu.url, {
-      quality: 'highest',
-    })
-      .pipe(fs.createWriteStream(`./media/${randomName}`));
-    await new Promise((resolve, reject) => {
-      stream.on("error", reject);
-      stream.on("finish", resolve);
-    });
-
-    let stats = fs.statSync(`./media/${randomName}`);
-    let fileSizeInBytes = stats.size;
-    let fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
-    if (fileSizeInMegabytes <= dlsize) {
-      let buttonMessage = {
-        video: fs.readFileSync(`./media/${randomName}`),
-        mimetype: 'video/mp4', // Change mimetype to video/mp4 for video
-        fileName: titleYt + ".mp4",
-      };
-      await message.client.sendMessage(message.jid, buttonMessage, { quoted: m })
-      return fs.unlinkSync(`./media/${randomName}`);
-    } else {
-      message.reply(`_File Size Bigger Than *100Mb*_`);
-    }
-    fs.unlinkSync(`./media/${randomName}`);
-  }
-);
-
