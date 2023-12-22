@@ -24,7 +24,6 @@
   "dependencies": {
    "@sampandey001/baileys": "latest",
     "@adiwajshing/keyed-db": "^0.2.4",
-    "abu-bot":"^2.4.0",
     "abhishek-ytube": "^1.0.0",
     "awesome-phonenumber": "^3.4.0",
     "bitly": "^7.1.2",
