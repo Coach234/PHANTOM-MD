@@ -1,8 +1,7 @@
-const { command, getUrl } = require("../lib");
+const { pnix } = require("../lib");
 const got = require("got");
 const fs = require("fs");
-const { PluginDB, installPlugin } = require("../lib/database/plugins");
-
+const { PluginDB, installPlugin } = require("../lib/database/plugins").Plugins;
 
 pnix(
   {
@@ -12,13 +11,13 @@ pnix(
     type: "owner",
   },
   async (message, match) => {
-    if (!match) return await message.sendMessage("_Send a plugin url_");
+    if (!match) return await message.sendMessage(message.jid,"_Send a plugin url_");
 
     try {
       var url = new URL(match);
     } catch (e) {
       console.log(e);
-      return await message.sendMessage("_Invalid Url_");
+      return await message.sendMessage(message.jid,"_Invalid Url_");
     }
 
     if (url.host === "gist.github.com") {
@@ -40,24 +39,25 @@ pnix(
         require("./" + plugin_name);
       } catch (e) {
         fs.unlinkSync(__dirname + "/" + plugin_name + ".js");
-        return await message.sendMessage("Invalid Plugin\n ```" + e + "```");
+        return await message.sendMessage(message.jid,"Invalid Plugin\n ```" + e + "```");
       }
 
       await installPlugin(url, plugin_name);
 
-      await message.sendMessage(`_New plugin installed : ${plugin_name}_`);
+      await message.sendMessage(message.jid,`_New plugin installed : ${plugin_name}_`);
     }
   }
 );
 
 
+
 pnix(
-  { pattern: "listPlugin", fromMe: true, desc: "plugin list", type: "owner" },
+  { pattern: "listplugin", fromMe: true, desc: "plugin list", type: "owner" },
   async (message, match) => {
     var mesaj = "";
     var plugins = await PluginDB.findAll();
     if (plugins.length < 1) {
-      return await message.sendMessage("_No external plugins installed_");
+      return await message.sendMessage(message.jid,"_No external plugins installed_");
     } else {
       plugins.map((plugin) => {
         mesaj +=
@@ -67,10 +67,11 @@ pnix(
           plugin.dataValues.url +
           "\n";
       });
-      return await message.sendMessage(mesaj);
+      return await message.sendMessage(message.jid,mesaj);
     }
   }
 );
+
 
 
 pnix(
@@ -81,17 +82,17 @@ pnix(
     type: "owner",
   },
   async (message, match) => {
-    if (!match) return await message.sendMessage("_Need a plugin name_");
+    if (!match) return await message.sendMessage(message.jid,"_Need a plugin name_");
 
     var plugin = await PluginDB.findAll({ where: { name: match } });
 
     if (plugin.length < 1) {
-      return await message.sendMessage("_Plugin not found_");
+      return await message.sendMessage(message.jid,"_Plugin not found_");
     } else {
       await plugin[0].destroy();
       delete require.cache[require.resolve("./" + match + ".js")];
       fs.unlinkSync(__dirname + "/" + match + ".js");
-      await message.sendMessage(`Plugin ${match} deleted`);
+      await message.sendMessage(message.jid,`Plugin ${match} deleted`);
     }
   }
 );
