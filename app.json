@@ -21,6 +21,11 @@
       "required": false,
       "value": "919074692450"
     },
+    "STICKER_DATA": {
+      "description": "Enter Your Sticker Packname",
+      "required": false,
+      "value": "🎯𝙿𝚑𝚘𝚎𝚗𝚒𝚡-𝙼𝙳;𝙰𝚋𝚑𝚒𝚜𝚑𝚎𝚔 𝚂𝚞𝚛𝚎𝚜𝚑☘️"
+    },
     "OWNER_NAME": {
       "description": "Enter Your Owner Name",
       "required": false,
@@ -48,6 +53,11 @@
     "HEROKU_API_KEY": {
       "description": "Enter Your Heroku Account Api Key. Get It From https://dashboard.heroku.com/account",
       "required": true
+    },
+    "AUTO_REACT": {
+      "description": "If You Want To React Automatically To Messages Type true. Otherwise, Type false",
+      "value": "false"
+      "required": true  
     },
     "AUTO_STATUS_READ": {
       "description": "If You Want To View Status Automatically, Type true. Otherwise, Type false",
