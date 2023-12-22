@@ -35,11 +35,11 @@ pnix(
       plugin_name = commands[0] || plugin_name[1] ||"__" + Math.random().toString(36).substring(8);
       
 
-      fs.writeFileSync("./plugins/" + plugin_name + ".js", response.body);
+     fs.writeFileSync(__dirname + "/" + plugin_name + ".js", body);
       try {
         require("./" + plugin_name);
       } catch (e) {
-        fs.unlinkSync("/xasena/plugins/" + plugin_name + ".js");
+        fs.unlinkSync("../plugins/" + plugin_name + ".js");
         return await message.sendMessage("Invalid Plugin\n ```" + e + "```");
       }
 
