@@ -12,7 +12,6 @@ pnix(
     fromMe: isPrivate,
     type: "main",
     desc: "Show All commands",
-    dontAddCommandList: true,
   },
   async (message, match, m) => {
   message.client.sendMessage(message.jid, { react: { text: "📃", key: m.key } });
@@ -52,7 +51,7 @@ Description : ${i.desc}\`\`\``
         if (!command.dontAddCommandList && cmd !== undefined) {
           let type;
           if (!command.type) {
-            type = "main";
+            type = "misc";
           } else {
             type = command.type.toLowerCase();
           }
