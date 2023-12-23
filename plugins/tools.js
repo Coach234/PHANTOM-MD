@@ -64,45 +64,6 @@ pnix(
 
 pnix(
   {
-    pattern: "emix",
-    type: "sticker",
-  },
-  async (message, match) => {
-    try {
-      // Split emojis using '+'
-      const [emoji1, emoji2] = match.split('+').map(e => e.trim());
-
-      // Check if both emojis are provided
-      if (!emoji1 || !emoji2) {
-        return await message.reply("_Provide two emojis separated by '+'_");
-      }
-
-      const apiEndpoint = `https://levanter.onrender.com/emix?q=${encodeURIComponent(emoji1 + emoji2)}`;
-      const response = await axios.get(apiEndpoint, { responseType: 'arraybuffer' });
-
-      if (response.status === 200) {
-        const stickerBuffer = Buffer.from(response.data, 'binary');
-        await message.sendMessage(
-          stickerBuffer,
-          {
-            packname: X.STICKER_DATA.split(";")[0],
-            author: X.STICKER_DATA.split(";")[1],
-          },
-          'sticker'
-        );
-      } else {
-        console.error('_Failed To Fetch Emix Sticker From The Api');
-        return await message.reply('_An Error Occurred While Processing the Emojis_');
-      }
-    } catch (error) {
-      console.error('_Error While Fetching Emix Sticker:_', error.message);
-      return await message.reply('_Error While Fetching Emix Sticker_');
-    }
-  }
-);
-
-pnix(
-  {
     pattern: "photo",
     fromMe: isPrivate,
     type: "converter",
@@ -140,10 +101,10 @@ pnix(
     fromMe: isPrivate,
     type: "downloader",
   },
-  async (message, match) => {
+  async (message, match, m) => {
     if (!match)
       return message.reply(
-        "_Enter a tg sticker url_\nEg: https://t.me/addstickers/Oldboyfinal\nKeep in mind that there is a chance of ban if used frequently"
+        "_Enter A Telegram Sticker Url_\n📌 Example : {m.prefix}tgs https://t.me/addstickers/Oldboyfinal"
       );
     let packid = match.split("/addstickers/")[1];
     let { result } = await getJson(
@@ -152,7 +113,7 @@ pnix(
       )}`
     );
     if (result.is_animated)
-      return message.reply("_Animated stickers are not supported_");
+      return message.reply("_Animated Stickers Are Not Supported_");
     message.reply(
       `*Total stickers :* ${result.stickers.length}\n*Estimated complete in:* ${
         result.stickers.length * 1.5
@@ -180,7 +141,7 @@ pnix(
   },
   async (message, match, m) => {
     if (!message.reply_message && !message.reply_message.sticker)
-      return await message.reply("_Reply to sticker_");
+      return await message.reply("_Reply To A Sticker_");
     let buff = await m.quoted.download();
     let [packname, author] = match.split(",");
     await message.sendMessage(
@@ -204,7 +165,7 @@ pnix(
   },
   async (message, match, m) => {
     if (!message.reply_message || !message.reply_message.sticker)
-      return await message.reply("_Reply to sticker_");
+      return await message.reply("_Reply To A Sticker_");
     let img = new Image();
     await img.load(await m.quoted.download());
     const exif = JSON.parse(img.exif.slice(22).toString());
@@ -220,10 +181,10 @@ pnix(
     fromMe: isPrivate,
     type: "tools",
   },
-  async (message, match) => {
+  async (message, match, m) => {
     if (!message.reply_message || !message.reply_message.text || !match ||isNaN(match)) {
       let text = tiny(
-        "Fancy text generator\n\nReply to a message\nExample: .fancy 32\n\n"
+        "Fancy Text Generator\n\nReply To A Message\n📌 Example : ${m.prefix}fancy 26\n\n"
       );
       listall("Fancy").forEach((txt, num) => {
         text += `${(num += 1)} ${txt}\n`;
@@ -234,3 +195,4 @@ pnix(
     }
   }
 );
+
