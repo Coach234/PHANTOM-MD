@@ -70,9 +70,9 @@ pnix(
   },
   async (message, match, m) => {
     if (!message.reply_message)
-      return await message.reply("_Reply to a sticker_");
+      return await message.reply("_Reply To A Sticker_");
     if (message.reply_message.mtype !== "stickerMessage")
-      return await message.reply("_Not a sticker_");
+      return await message.reply("_Not A Sticker_");
     let buff = await m.quoted.download();
     return await message.sendMessage(buff, {}, "image");
   }
@@ -86,9 +86,9 @@ pnix(
   },
   async (message, match, m) => {
     if (!message.reply_message)
-      return await message.reply("_Reply to a sticker_");
+      return await message.reply("_Reply To A Sticker_");
     if (message.reply_message.mtype !== "stickerMessage")
-      return await message.reply("_Not a sticker_");
+      return await message.reply("_Not A Sticker_");
     let buff = await m.quoted.download();
     let buffer = await webp2mp4(buff);
     return await message.sendMessage(buffer, {}, "video");
@@ -104,7 +104,7 @@ pnix(
   async (message, match, m) => {
     if (!match)
       return message.reply(
-        "_Enter A Telegram Sticker Url_\n📌 Example : {m.prefix}tgs https://t.me/addstickers/Oldboyfinal"
+        "_Enter A Telegram Sticker Url_\n📌 Example : tgs https://t.me/addstickers/Oldboyfinal"
       );
     let packid = match.split("/addstickers/")[1];
     let { result } = await getJson(
@@ -184,7 +184,7 @@ pnix(
   async (message, match, m) => {
     if (!message.reply_message || !message.reply_message.text || !match ||isNaN(match)) {
       let text = tiny(
-        "Fancy Text Generator\n\nReply To A Message\n📌 Example : ${m.prefix}fancy 26\n\n"
+        "Fancy Text Generator\n\nReply To A Message\n📌 Example : fancy 26\n\n"
       );
       listall("Fancy").forEach((txt, num) => {
         text += `${(num += 1)} ${txt}\n`;
@@ -195,4 +195,5 @@ pnix(
     }
   }
 );
+
 
