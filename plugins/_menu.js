@@ -52,7 +52,7 @@ Description : ${i.desc}\`\`\``
         if (!command.dontAddCommandList && cmd !== undefined) {
           let type;
           if (!command.type) {
-            type = "misc";
+            type = "main";
           } else {
             type = command.type.toLowerCase();
           }
