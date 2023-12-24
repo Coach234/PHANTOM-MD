@@ -1,6 +1,5 @@
 const { pnix } = require("../lib/");
-const { setMessage, getMessage, delMessage, getStatus, toggleStatus } =
-require("../lib/database/greetings")
+const { setMessage, getMessage, delMessage, getStatus, toggleStatus } = require("../lib/database").Greetings;
 
 pnix({
         pattern: "welcome",
