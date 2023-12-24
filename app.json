@@ -55,10 +55,10 @@
       "required": true
     },
     "AUTO_REACT": {
-      "description": "If You Want To React Automatically To Messages Type true. Otherwise, Type false",
-      "value": "false"
-      "required": true  
-    },
+  "description": "If You Want To React Automatically To Messages Type true. Otherwise, Type false",
+  "value": "false",
+  "required": true
+   },
     "AUTO_STATUS_READ": {
       "description": "If You Want To View Status Automatically, Type true. Otherwise, Type false",
       "required": false,
