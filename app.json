@@ -13,7 +13,7 @@
     },
     "HANDLERS": {
       "description": "Enter Prefix For Commands",
-      "required": true,
+      "required": false,
       "value": ","
     },
     "SUDO": {
@@ -57,12 +57,12 @@
     "AUTO_REACT": {
   "description": "If You Want To React Automatically To Messages Type true. Otherwise, Type false",
   "value": "false",
-  "required": true
+  "required": false
    },
     "AUTO_STATUS_READ": {
       "description": "If You Want To View Status Automatically, Type true. Otherwise, Type false",
       "required": false,
-      "value": "true"
+      "value": "false"
     }
   },
   "buildpacks": [
