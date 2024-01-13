@@ -38,11 +38,15 @@ Fork The Repo
 
 <a href="https://github.com/codespaces/new"><img title="Phoenix-MD Deploy CodeSpace" src="https://img.shields.io/badge/DEPLOY CODESPACE-h?color=black&style=for-the-badge&logo=visualstudiocode"></a>
 
+### Codespace Tutorial
+
+<a href="https://youtu.be/ZSwJtaN0BUk?si=FOsYpMs4WbvBFCpY"><img title="Phoenix-MD Deploy CodeSpace" src="https://img.shields.io/badge/Codespace Tutorial-h?color=black&style=for-the-badge&logo=visualstudiocode"></a>
+
 ### Deploy Heroku 
 
 <a href="https://heroku.com/deploy?template=https://github.com/AbhishekSuresh2/Phoenix-MD/"><img title="Phoenix-MD Deploy Heroku" src="https://img.shields.io/badge/DEPLOY HEROKU-h?color=black&style=for-the-badge&logo=heroku"></a>
 
-### Deploy Heroku Tutorial
+### Heroku Tutorial
 
 <a href="https://youtu.be/sDojtm-bwN4?si=gbvAqTOSfuVRU2-k"><img title="Heroku Tutorial" src="https://img.shields.io/badge/Heroku Tutorial-h?color=black&style=for-the-badge&logo=heroku"></a>
 ### Deploy Railway
