@@ -44,6 +44,7 @@
     "heroku-client":"^3.1.0",
     "jimp": "^0.16.1",
     "jsdom": "^20.0.0",
+    "javascript-obfuscator": "^4.1.0",
     "koyeb-api": "^1.0.4",
     "moment-timezone": "^0.5.37",
     "node-cron": "^3.0.2",
