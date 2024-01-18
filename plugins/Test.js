@@ -1,5 +1,4 @@
 const {
-
   Function,
   isPrivate,
   getUrl,
@@ -14,20 +13,20 @@ const {
   parsedJid,
   styletext,
   decodeJid,
+  yt,
+  ytIdRegex,
+  yta,
+  ytv,
   runtime,
   clockString,
   sleep,
   pnix,
-
 } = require("../lib/");
+const { pnix } = require("../lib/");
 const util = require("util");
 const config = require("../config");
-pnix({pattern:'eval', 
-         on: "text",
-         fromMe: true,
-         desc :'Runs a server code',
-         type: "owner"}, 
-         async (message, match, m, client) => {
+
+pnix({pattern:'eval', on: "text", fromMe: true,desc :'Runs a server code'}, async (message, match, m, client) => {
   if (match.startsWith(">")) {
     try {
       let evaled = await eval(`${match.replace(">", "")}`);
@@ -35,9 +34,6 @@ pnix({pattern:'eval',
       await message.reply(evaled);
     } catch (err) {
       await message.reply(util.format(err));
-
     }
-
   }
-
 });
