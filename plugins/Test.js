@@ -22,11 +22,10 @@ const {
   sleep,
   pnix,
 } = require("../lib/");
-const { pnix } = require("../lib/");
 const util = require("util");
 const config = require("../config");
 
-pnix({pattern:'eval', on: "text", fromMe: true,desc :'Runs a server code'}, async (message, match, m, client) => {
+pnix({ pattern: 'eval', on: "text", fromMe: true, desc: 'Runs a server code' }, async (message, match, m, client) => {
   if (match.startsWith(">")) {
     try {
       let evaled = await eval(`${match.replace(">", "")}`);
