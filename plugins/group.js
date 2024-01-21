@@ -222,3 +222,29 @@ pnix(
     }
   }
 );
+
+pnix({
+	pattern: 'left ?(.*)',
+	fromMe: true,
+	desc: 'Left from group',
+	type: 'group'
+}, async (message) => {
+    if (!message.isGroup)
+    return await message.reply("_*This Command Is Only For Groups*_");
+    await message.client.groupLeave(message.jid)
+});
+
+                                    
+  pnix({
+    pattern: 'link ?(.*)',
+    fromMe: isPrivate,
+    desc: "Provides the group's invitation link.",
+    type: 'group'
+}, async (message) => {
+    if (!message.isGroup)
+    return await message.reply("_*This Command Is Only For Groups*_");
+    const isadmin = await isAdmin(message.jid, message.user, message.client);
+    if (!isadmin) return await message.send("_*Make Me Admin First*_");
+    const data = await message.client.groupInviteCode(message.jid);
+    return await message.reply(`*Group Link 🔗*\nhttps://chat.whatsapp.com/${data}`);
+});                      
