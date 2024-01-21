@@ -193,7 +193,7 @@ pnix(
 
 pnix(
   {
-    pattern: "tag",
+    pattern: "totag",
     fromMe: isPrivate,
     type: "group",
   },
@@ -204,7 +204,7 @@ pnix(
 
     if (!message.quoted && !match) {
       return await message.client.sendMessage(message.jid, {
-        text: `_Enter A Message_\n_📌 Example: *${m.prefix}tag Hello Everyone Its Phoenix-MD*_`,
+        text: `_Enter A Message_\n_📌 Example: *${m.prefix}totag Hello Everyone Its Phoenix-MD*_`,
         quoted: message,
       });
     }
