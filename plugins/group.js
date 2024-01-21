@@ -18,7 +18,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("__*Make Me Admin First*__");
+    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "add");
@@ -45,7 +45,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("__*Make Me Admin First*__");
+    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "remove");
@@ -72,7 +72,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("__*Make Me Admin First*__");
+    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "promote");
@@ -98,7 +98,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("__*Make Me Admin First*__");
+    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "demote");
@@ -123,7 +123,7 @@ pnix(
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("__*Make Me Admin First*__");
+      return await message.reply("_*Make Me Admin First*_");
     await message.reply("_Muting_");
     return await client.groupSettingUpdate(message.jid, "announcement");
   }
@@ -140,7 +140,7 @@ pnix(
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("__*Make Me Admin First*__");
+      return await message.reply("_*Make Me Admin First*_");
     await message.reply("_Unmuting_");
     return await client.groupSettingUpdate(message.jid, "not_announcement");
   }
