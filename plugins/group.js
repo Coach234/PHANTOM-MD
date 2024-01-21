@@ -18,7 +18,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
+    if (!isadmin) return await message.reply("_*Make Me Admin To Proceed*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "add");
@@ -45,7 +45,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
+    if (!isadmin) return await message.reply("_*Make Me Admin To Proceed*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "remove");
@@ -72,7 +72,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
+    if (!isadmin) return await message.reply("_*Make Me Admin To Proceed*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "promote");
@@ -98,7 +98,7 @@ pnix(
 
     const isadmin = await isAdmin(message.jid, message.user, message.client);
 
-    if (!isadmin) return await message.reply("_*Make Me Admin First*_");
+    if (!isadmin) return await message.reply("_*Make Me Admin To Proceed*_");
     const jid = parsedJid(match);
 
     await message.client.groupParticipantsUpdate(message.jid, jid, "demote");
@@ -123,7 +123,7 @@ pnix(
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("_*Make Me Admin First*_");
+      return await message.reply("_*Make Me Admin To Proceed*_");
     await message.reply("_Muting_");
     return await client.groupSettingUpdate(message.jid, "announcement");
   }
@@ -140,7 +140,7 @@ pnix(
     if (!message.isGroup)
       return await message.reply("_*This Command Is Only For Groups*_");
     if (!isAdmin(message.jid, message.user, message.client))
-      return await message.reply("_*Make Me Admin First*_");
+      return await message.reply("_*Make Me Admin To Proceed*_");
     await message.reply("_Unmuting_");
     return await client.groupSettingUpdate(message.jid, "not_announcement");
   }
@@ -244,7 +244,38 @@ pnix({
     if (!message.isGroup)
     return await message.reply("_*This Command Is Only For Groups*_");
     const isadmin = await isAdmin(message.jid, message.user, message.client);
-    if (!isadmin) return await message.send("_*Make Me Admin First*_");
+    if (!isadmin) return await message.send("_*Make Me Admin To Proceed*_");
     const data = await message.client.groupInviteCode(message.jid);
     return await message.reply(`*Group Link 🔗*\nhttps://chat.whatsapp.com/${data}`);
-});                      
+});
+
+pnix(
+  {
+    on: "text",
+    fromMe: false,
+  },
+  async (message, match) => {
+    if (!message.isGroup) return;
+    if (config.ANTILINK)
+      if (isUrl(match)) {
+        await message.reply("_*Link Detected*_");
+        let botadmin = await isAdmin(message.jid, message.user, message.client);
+        let senderadmin = await isAdmin(
+          message.jid,
+          message.participant,
+          message.client
+        );
+        if (botadmin) {
+          if (!senderadmin) {
+            await message.reply(
+              `_Performing Specified Action :*${config.ANTILINK_ACTION}*_`
+            );
+            return await message[config.ANTILINK_ACTION]([message.participant]);
+          }
+        } else {
+          return await message.reply("_*Make Me Admin To Proceed*_");
+        }
+      }
+  }
+);
+	    
