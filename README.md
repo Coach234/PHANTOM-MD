@@ -51,11 +51,7 @@ Fork The Repo
 <a href="https://youtu.be/sDojtm-bwN4?si=gbvAqTOSfuVRU2-k"><img title="Heroku Tutorial" src="https://img.shields.io/badge/Heroku Tutorial-h?color=black&style=for-the-badge&logo=heroku"></a>
 ### Deploy Railway
 
-<a href="https://railway.app/new"><img title="Phoenix-MD Deploy Railway" src="https://img.shields.io/badge/DEPLOY RAILWAY-h?color=black&style=for-the-badge&logo=Railway"></a>
-
-### Deploy Mogenius
-
-<a href="https://studio.mogenius.com/studio/cloud-space/cloud-space-overview"><img title="Phoenix-MD Deploy Mogenius" src="https://img.shields.io/badge/DEPLOY MOGENIUS-h?color=black&style=for-the-badge&logo=genius"></a> 
+<a href="https://railway.app/new"><img title="Phoenix-MD Deploy Railway" src="https://img.shields.io/badge/DEPLOY RAILWAY-h?color=black&style=for-the-badge&logo=Railway"></a> 
  
  ## Support
 
