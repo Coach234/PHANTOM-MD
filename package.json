@@ -24,7 +24,7 @@
   "author": "Abhishek Suresh",
   "license": "Apache-2.0",
   "dependencies": {
-   "@sampandey001/baileys": "latest",
+   "@whiskeysockets/baileys": "^6.5.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "abhishek-ytube": "^1.0.0",
     "awesome-phonenumber": "^3.4.0",
