@@ -24,12 +24,9 @@ Fork The Repo
     <br>
 <a href="https://github.com/AbhishekSuresh2/Phoenix-MD/fork"><img title="Phoenix-MD" src="https://img.shields.io/badge/FORK Phoenix MD-h?color=black&style=for-the-badge&logo=stackshare"></a>
 
-#### Scan QR Code
+#### Session ID
 
-<a href="https://phoenix-md-qr-code-569ef64f2cad.herokuapp.com"><img title="Phoenix-MD Scan Qr" src="https://img.shields.io/badge/SCAN QR CODE 1-h?color=black&style=for-the-badge&logo=msi"></a>
-     <br>
-<a href="https://phoenix-md-qr-code-569ef64f2cad.herokuapp.com/session"><img title="Phoenix-MD Scan Qr" src="https://img.shields.io/badge/SCAN QR CODE 2-h?color=black&style=for-the-badge&logo=msi"></a>     
-
+<a href="https://phoenix-md-session-c09fdfa3b238.herokuapp.com/"><img title="Phoenix-MD Session ID" src="https://img.shields.io/badge/GET SESSION ID-h?color=black&style=for-the-badge&logo=msi"></a>
 
 ## Phoenix-MD Deploy Method
 
