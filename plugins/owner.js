@@ -40,7 +40,7 @@ pnix(
       let jid = message.mention[0] || message.reply_message.jid;
       if (!jid) return await message.reply("_Reply To A Person Or Mention_");
       await message.block(jid);
-      return await message.sendMessageMessage(`_@${jid.split("@")[0]} Blocked ✅_`, {
+      return await message.sendMessage(`_@${jid.split("@")[0]} Blocked ✅_`, {
         mentions: [jid],
       });
     } else {
