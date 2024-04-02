@@ -1,6 +1,6 @@
 FROM node:lts-buster
 
-RUN git clone https://github.com/AbhishekSuresh2/Phoenix-MD/ /root/Phoenix-MD
+RUN git clone https://github.com/Coach234/PHANTOM-MD/ /root/Phantom-MD
 
 WORKDIR /root/Phoenix-MD
 
