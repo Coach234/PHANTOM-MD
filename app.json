@@ -1,10 +1,10 @@
 {
-  "name": "Phoenix-MD",
+  "name": "Phantom-MD",
   "version": "1.0.0",
-  "description": "Phoenix-MD Simple WhatsApp Bot",
-  "logo": "https://i.imgur.com/T78fhJk.jpeg",
-  "keywords": ["whatsapp", "bot", "md", "multi-device", "Phoenix", "Phoenix-MD", "wabot", "termux-bot", "sc-bot"],
-  "repository": "https://github.com/AbhishekSuresh2/Phoenix-MD",
+  "description": "Phantom-MD Simple WhatsApp Bot",
+  "logo": "https://telegra.ph/file/0ce3fd7c24684b7593d54.jpg",
+  "keywords": ["whatsapp", "bot", "md", "multi-device", "Phantom", "Phantom-MD", "wabot", "termux-bot", "sc-bot"],
+  "repository": "https://github.com/Coach234/PHANTOM-MD",
   "stack": "container",
   "env": {
     "SESSION_ID": {
@@ -19,27 +19,27 @@
     "SUDO": {
       "description": "Enter Numbers With Country Code Without + Separated With , To Add More Numbers",
       "required": false,
-      "value": "919074692450"
+      "value": "2348108395270"
     },
     "STICKER_DATA": {
       "description": "Enter Your Sticker PackName And Author Name",
       "required": false,
-      "value": "🎯𝙿𝚑𝚘𝚎𝚗𝚒𝚡-𝙼𝙳;𝙰𝚋𝚑𝚒𝚜𝚑𝚎𝚔 𝚂𝚞𝚛𝚎𝚜𝚑☘️"
+      "value": "🎯Phantom-𝙼𝙳;King Phantom☘️"
     },
     "OWNER_NAME": {
       "description": "Enter Your Owner Name",
       "required": false,
-      "value": "Abhishek Suresh"
+      "value": "King Phantom"
     },
     "OWNER_NUMBER": {
       "description": "Enter Your Owner Number",
       "required": false,
-      "value": "919074692450"
+      "value": "2348108395270"
     },
     "BOT_NAME": {
       "description": "Enter Your Bot Name",
       "required": false,
-      "value": "Phoenix-MD"
+      "value": "Phantom-MD"
     },
     "WORK_TYPE": {
       "description": "Enter Your Mode Type public For Public Otherwise Type private",
